@@ -1,5 +1,6 @@
 
 public class Arena extends Thread {
+    //Duration of one round
     private final long ROUND_DELAY = 200;
 
     private Fighter oneFighter;
@@ -26,9 +27,12 @@ public class Arena extends Thread {
     }
 
     public void faithing(long roundDelay){
+       // inform about the entrance of the fighters into the arena
         inArenaMessage(oneFighter);
         inArenaMessage(twoFighter);
+        //Who beats first
         boolean whoFirst = Utilities.random(0, 1) == 0;
+
         while (true) {
             if (whoFirst) {
                 oneFighter.attack(twoFighter);

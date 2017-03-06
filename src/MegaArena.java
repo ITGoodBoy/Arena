@@ -21,7 +21,7 @@ public class MegaArena {
             for (Arena arena : arenaList) {
                 arena.start();
             }
-
+            //wait until all the arenas run out of battle
             for (Arena arena : arenaList) {
                 try {
                     arena.join();
@@ -29,16 +29,19 @@ public class MegaArena {
                     e.printStackTrace();
                 }
             }
-
+            //Add winners from each arena to the list, lose the losers
             for (Arena arena : arenaList) {
                 fighterList.add(arena.getWinner());
             }
+            //If the winner is one - leave the loop and display the winner on display
             if (fighterList.size() == 1){
                 endFaith(fighterList.get(0));
                 break;
             }
+            //collect teeth from arenas))
             arenaList.clear();
 
+            //While the number of fighters is more than 1, we put them on a separate arena in the sparring
             while (fighterList.size() > 1){
                 arenaList.add(new Arena(fighterList.get(0), fighterList.get(1)));
                 fighterList.remove(0);
