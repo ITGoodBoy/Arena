@@ -1,4 +1,8 @@
-public class Fighter {
+package common;
+
+import java.io.Serializable;
+
+public class Fighter implements Serializable{
 
     private String name;
     private int healPoint;
@@ -66,26 +70,26 @@ public class Fighter {
         this.intuition = intuition;
     }
 
-    public void attack(Fighter anotherFighter) {
+    public String attack(Fighter anotherFighter) {
         if (anotherFighter.evadeChance())
-            Utilities.printText("боец " + anotherFighter.name + Utilities.getColorText(" уклонился ", Utilities.ANSI_BLUE));
+         return  "ваш враг " + anotherFighter.name + Utilities.getColorText(" уклонился ", Utilities.ANSI_BLUE);
         else {
             int randomDamage = Utilities.random(1, strength);
             if (criticalChance()) {
                 int criticalDamage = randomDamage * 2;
-                Utilities.printText("боец " + name + "(" +
-                        Utilities.getColorText(healPoint, Utilities.ANSI_GREEN) + ") нанёс " +
+                anotherFighter.healPoint -= criticalDamage;
+               return "вы " + name + "(" +
+                        Utilities.getColorText(healPoint, Utilities.ANSI_GREEN) + ") нанесли " +
                         Utilities.getColorText("Критический ", Utilities.ANSI_RED) +
                         "удар бойцу " + anotherFighter.name +
-                        "(" + Utilities.getColorText(anotherFighter.healPoint, Utilities.ANSI_GREEN) + ") на " + criticalDamage);
-                anotherFighter.healPoint -= criticalDamage;
+                        "(" + Utilities.getColorText(anotherFighter.healPoint, Utilities.ANSI_GREEN) + ") на " + criticalDamage;
             }
             else {
-                Utilities.printText("боец " + name + "(" +
-                        Utilities.getColorText(healPoint, Utilities.ANSI_GREEN) + ") нанёс удар бойцу "
-                        + anotherFighter.name +  "(" +
-                        Utilities.getColorText(anotherFighter.healPoint, Utilities.ANSI_GREEN) + ")" + " на " + randomDamage);
                 anotherFighter.healPoint -= randomDamage;
+                return "вы " + name + "(" +
+                        Utilities.getColorText(healPoint, Utilities.ANSI_GREEN) + ") нанесли удар бойцу "
+                        + anotherFighter.name +  "(" +
+                        Utilities.getColorText(anotherFighter.healPoint, Utilities.ANSI_GREEN) + ")" + " на " + randomDamage;
             }
         }
     }
