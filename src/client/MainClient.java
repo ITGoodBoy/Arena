@@ -1,23 +1,17 @@
 package client;
 
-import common.Connection;
-import common.Fighter;
-import common.Message;
-import common.MessageType;
+import common.*;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Sergey on 28.03.2017.
  */
 public class MainClient {
 
-    private static AtomicLong atomicLong = new AtomicLong(1);
-
     public static void main(String[] args) throws IOException {
-        Fighter fighter = new Fighter("Боец номер #" + atomicLong.getAndIncrement());
+        Fighter fighter = new Fighter("Боец номер #" + Utilities.random(1, 10000));
         Socket socket = new Socket("localhost", 80);
         Connection connection = new Connection(socket);
         connection.sendMessage(new Message(fighter, MessageType.FIGHTER));
